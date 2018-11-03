@@ -32,9 +32,7 @@ public class ChatFunctionalityTest {
 
     @BeforeTest
     public void initializeWebDriver() {
-        DesiredCapabilities capabilities = DesiredCapabilities.firefox();
-        capabilities.setCapability("platform", Platform.LINUX);
-        driver = new ChromeDriver(capabilities);
+        driver = new ChromeDriver();
 
         driver.manage().window().maximize();
         driver.manage().timeouts().pageLoadTimeout(25, TimeUnit.SECONDS);
