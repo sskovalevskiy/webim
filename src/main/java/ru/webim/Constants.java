@@ -1,8 +1,10 @@
 package ru.webim;
 
 public class Constants {
-    public static final String WEB_DRIVER = "webdriver.chrome.driver";
-    public static final String WEB_DRIVER_PATH = "src/main/resources/driver/chromedriver";
+    public static final String WEB_DRIVER_CHROME = "webdriver.chrome.driver";
+    public static final String WEB_DRIVER_PATH_CHROME = "src/main/resources/driver/chromedriver";
+    public static final String WEB_DRIVER_FIREFOX = "webdriver.gecko.driver";
+    public static final String WEB_DRIVER_PATH_FIREFOX = "src/main/resources/driver/geckodriver";
 
     public static final String SITE_URL = "https://demo-pro.webim.ru/";
     public static final String OPERATOR_PAGE_URL = "http://demo.webim.ru/webim/";

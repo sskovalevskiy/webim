@@ -12,6 +12,7 @@ import ru.webim.NoOperatorException;
 import java.awt.*;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.KeyEvent;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -90,46 +91,43 @@ public class MainPage {
         sendTextButton.click();
     }
 
-    public boolean textIsDisplayedInChat() {
+    public boolean textIsDisplayedInChat(String text) {
         LinkedList<WebElement> webimDialogues = new LinkedList<>(dialoguesInChat);
 
         ArrayList<String> messages = new ArrayList<>();
         webimDialogues.getLast().findElements(By.cssSelector("div.webim-message-body")).forEach(e -> messages.add(e.getText()));
 
-        return messages.contains(SEND_TEXT);
+        return messages.contains(text);
     }
 
     public void sendFile(){
 
         clickChatActionsBlockLink(sendFileLink);
 
-        JavascriptExecutor jse = (JavascriptExecutor) driver;
-        jse.executeScript("document.getElementsByClassName('webim-fileupload')[1].style = ''");
+        setClipboard(PATH_TO_FILE);
 
-        driver.findElement(By.cssSelector("input.webim-fileupload")).sendKeys("/home/ssk/NEW_FILE.txt");
+        sendFileLink.click();
 
-//        setClipboard("/home/ssk/NEW_FILE.txt");
-
-//        sendFileLink.click();
-
-//        Robot robot = null;
-//        try {
-//            robot = new Robot();
-//        } catch (AWTException e) {
-//            e.printStackTrace();
-//        }
-//        // Ctrl-V + Enter on Win
-//        robot.delay(3000);
-//        robot.keyPress(KeyEvent.VK_CONTROL);
-//        robot.keyPress(KeyEvent.VK_V);
-//        robot.keyRelease(KeyEvent.VK_V);
-//        robot.keyRelease(KeyEvent.VK_CONTROL);
-//        robot.keyPress(KeyEvent.VK_ENTER);
+        Robot robot = null;
+        try {
+            robot = new Robot();
+        } catch (AWTException e) {
+            e.printStackTrace();
+        }
+        // Ctrl-V + Enter on Win
+        robot.delay(3000);
+        robot.keyPress(KeyEvent.VK_CONTROL);
+        robot.keyPress(KeyEvent.VK_V);
+        robot.keyRelease(KeyEvent.VK_V);
+        robot.keyRelease(KeyEvent.VK_CONTROL);
+        robot.keyPress(KeyEvent.VK_ENTER);
 
     }
 
     public boolean fileWasSent() {
-        return false;
+        File file = new File(PATH_TO_FILE);
+
+        return textIsDisplayedInChat("Отправил(а) файл " + file.getName());
     }
 
     public void setOperatorRating() throws Exception {
